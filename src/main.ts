@@ -17,7 +17,7 @@ async function run(): Promise<void> {
       authToken,
       false
     )
-    const httpClient: thc.HttpClient = new thc.HttpClient('gh-api-client', [
+    const httpClient: thc.HttpClient = new thc.HttpClient('https://api.github.com', [
       credentialHandler
     ])
 
