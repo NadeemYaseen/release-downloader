@@ -1,4 +1,4 @@
-import * as core from '@actions/core'
+//import * as core from '@actions/core'
 import * as handlers from 'typed-rest-client/Handlers'
 import * as inputHelper from './input-helper'
 import * as thc from 'typed-rest-client/HttpClient'
@@ -9,8 +9,9 @@ import { extract } from './unarchive'
 async function run(): Promise<void> {
   try {
     const downloadSettings = inputHelper.getInputs()
-    const authToken = core.getInput('token')
-    const githubApiUrl = core.getInput('github-api-url')
+    const authToken = 'kkkkk'
+    //const githubApiUrl = core.getInput('github-api-url')
+    const githubApiUrl = 'https://api.github.com'
 
     const credentialHandler = new handlers.BearerCredentialHandler(
       authToken,
@@ -30,10 +31,12 @@ async function run(): Promise<void> {
       }
     }
 
-    core.info(`Done: ${res}`)
+    //core.info(`Done: ${res}`)
+    console.info(`Done: ${res}`)
   } catch (error) {
     if (error instanceof Error) {
-      core.setFailed(error.message)
+      //core.setFailed(error.message)
+      console.error(error.message)
     }
   }
 }

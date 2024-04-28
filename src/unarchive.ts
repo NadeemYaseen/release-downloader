@@ -1,4 +1,4 @@
-import * as core from '@actions/core'
+//import * as core from '@actions/core'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as tar from 'tar'
@@ -13,9 +13,12 @@ export const extract = async (
   const filename = path.basename(filePath)
 
   if (!isTarGz && !isZip) {
-    core.warning(
-      `The file ${filename} is not a supported archive. It will be skipped`
-    )
+    //core.warning(
+    //  `The file ${filename} is not a supported archive. It will be skipped`
+    //)
+    console.info(
+        `The file ${filename} is not a supported archive. It will be skipped`
+      )
     return
   }
 
@@ -36,5 +39,6 @@ export const extract = async (
     await zip.extract(null, destDir)
     await zip.close()
   }
-  core.info(`Extracted ${filename} to ${destDir}`)
+  //core.info(`Extracted ${filename} to ${destDir}`)
+  console.info(`Extracted ${filename} to ${destDir}`)
 }

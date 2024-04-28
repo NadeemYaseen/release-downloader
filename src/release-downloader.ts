@@ -1,4 +1,4 @@
-import * as core from '@actions/core'
+//import * as core from '@actions/core'
 import * as fs from 'fs'
 import * as io from '@actions/io'
 import * as path from 'path'
@@ -57,9 +57,12 @@ export class ReleaseDownloader {
     )
 
     // Set the output variables for use by other actions
-    core.setOutput('tag_name', ghRelease.tag_name)
-    core.setOutput('release_name', ghRelease.name)
-    core.setOutput('downloaded_files', result)
+    //core.setOutput('tag_name', ghRelease.tag_name)
+    console.log('tag_name', ghRelease.tag_name)
+    //core.setOutput('release_name', ghRelease.name)
+    console.log('release_name', ghRelease.name)
+    //core.setOutput('downloaded_files', result)
+    console.log('downloaded_files', result)
 
     return result
   }
@@ -72,7 +75,8 @@ export class ReleaseDownloader {
     repoPath: string,
     preRelease: boolean
   ): Promise<GithubRelease> {
-    core.info(`Fetching latest release for repo ${repoPath}`)
+    //core.info(`Fetching latest release for repo ${repoPath}`)
+    console.info(`Fetching latest release for repo ${repoPath}`)
 
     const headers: IHeaders = { Accept: 'application/vnd.github.v3+json' }
     let response: IHttpClientResponse
@@ -101,7 +105,8 @@ export class ReleaseDownloader {
     let release: GithubRelease
     if (!preRelease) {
       release = JSON.parse(responseBody.toString())
-      core.info(`Found latest release version: ${release.tag_name}`)
+      //core.info(`Found latest release version: ${release.tag_name}`)
+      console.info(`Found latest release version: ${release.tag_name}`)
     } else {
       const allReleases: GithubRelease[] = JSON.parse(responseBody.toString())
       const latestPreRelease: GithubRelease | undefined = allReleases.find(
@@ -110,7 +115,8 @@ export class ReleaseDownloader {
 
       if (latestPreRelease) {
         release = latestPreRelease
-        core.info(`Found latest pre-release version: ${release.tag_name}`)
+        //core.info(`Found latest pre-release version: ${release.tag_name}`)
+        console.info(`Found latest pre-release version: ${release.tag_name}`)
       } else {
         throw new Error('No prereleases found!')
       }
@@ -128,7 +134,8 @@ export class ReleaseDownloader {
     repoPath: string,
     tag: string
   ): Promise<GithubRelease> {
-    core.info(`Fetching release ${tag} from repo ${repoPath}`)
+    //core.info(`Fetching release ${tag} from repo ${repoPath}`)
+    console.info(`Fetching release ${tag} from repo ${repoPath}`)
 
     if (tag === '') {
       throw new Error('Config error: Please input a valid tag')
@@ -150,7 +157,8 @@ export class ReleaseDownloader {
 
     const responseBody = await response.readBody()
     const release: GithubRelease = JSON.parse(responseBody.toString())
-    core.info(`Found release tag: ${release.tag_name}`)
+    //core.info(`Found release tag: ${release.tag_name}`)
+    console.info(`Found release tag: ${release.tag_name}`)
 
     return release
   }
@@ -164,7 +172,8 @@ export class ReleaseDownloader {
     repoPath: string,
     id: string
   ): Promise<GithubRelease> {
-    core.info(`Fetching release id:${id} from repo ${repoPath}`)
+    //core.info(`Fetching release id:${id} from repo ${repoPath}`)
+    console.info(`Fetching release id:${id} from repo ${repoPath}`)
 
     if (id === '') {
       throw new Error('Config error: Please input a valid release ID')
@@ -186,7 +195,8 @@ export class ReleaseDownloader {
 
     const responseBody = await response.readBody()
     const release: GithubRelease = JSON.parse(responseBody.toString())
-    core.info(`Found release tag: ${release.tag_name}`)
+    //core.info(`Found release tag: ${release.tag_name}`)
+    console.info(`Found release tag: ${release.tag_name}`)
 
     return release
   }
@@ -281,7 +291,8 @@ export class ReleaseDownloader {
       headers['Accept'] = '*/*'
     }
 
-    core.info(`Downloading file: ${asset.fileName} to: ${outputPath}`)
+    //core.info(`Downloading file: ${asset.fileName} to: ${outputPath}`)
+    console.info(`Downloading file: ${asset.fileName} to: ${outputPath}`)
     const response = await this.httpClient.get(asset.url, headers)
 
     if (response.message.statusCode === 200) {
