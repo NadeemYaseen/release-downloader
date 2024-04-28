@@ -1,5 +1,5 @@
 //import * as core from '@actions/core'
-import * as path from 'path'
+//import * as path from 'path'
 import { IReleaseDownloadSettings } from './download-settings'
 
 function validateRepositoryPath(repositoryPath: string): void {
@@ -29,7 +29,7 @@ export function getInputs(): IReleaseDownloadSettings {
   if (!githubWorkspacePath) {
     throw new Error('$GITHUB_WORKSPACE not defined')
   }
-  githubWorkspacePath = path.resolve(githubWorkspacePath)
+  //githubWorkspacePath = path.resolve(githubWorkspacePath)
 
   //const repositoryPath = core.getInput('repository')
   const repositoryPath = 'RapidSilicon/SpicaProduct'
@@ -60,8 +60,9 @@ export function getInputs(): IReleaseDownloadSettings {
     zipBall: true,
     //extractAssets: core.getBooleanInput('extract'),
     extractAssets: true,
-    outFilePath: path.resolve(
-      githubWorkspacePath)
+    outFilePath: githubWorkspacePath
+   // outFilePath: path.resolve(
+    //  githubWorkspacePath)
     //outFilePath: path.resolve(
     //  githubWorkspacePath,
     //  core.getInput('out-file-path') || '.'

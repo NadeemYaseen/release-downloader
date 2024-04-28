@@ -1,7 +1,7 @@
 //import * as core from '@actions/core'
-import * as fs from 'fs'
-import * as io from '@actions/io'
-import * as path from 'path'
+//import * as fs from 'fs'
+//import * as io from '@actions/io'
+//import * as path from 'path'
 import * as thc from 'typed-rest-client/HttpClient'
 import { minimatch } from 'minimatch'
 
@@ -263,11 +263,11 @@ export class ReleaseDownloader {
     dData: DownloadMetaData[],
     out: string
   ): Promise<string[]> {
-    const outFileDir = path.resolve(out)
+   // const outFileDir = path.resolve(out)
 
-    if (!fs.existsSync(outFileDir)) {
-      io.mkdirP(outFileDir)
-    }
+    //if (!fs.existsSync(outFileDir)) {
+    //  io.mkdirP(outFileDir)
+    //}
 
     const downloads: Promise<string>[] = []
 
@@ -296,30 +296,32 @@ export class ReleaseDownloader {
     const response = await this.httpClient.get(asset.url, headers)
 
     if (response.message.statusCode === 200) {
-      return this.saveFile(outputPath, asset.fileName, response)
+     // return this.saveFile(outputPath, asset.fileName, response)
+     console.log('File is found')
     } else {
       const err: Error = new Error(
         `Unexpected response: ${response.message.statusCode}`
       )
       throw err
     }
+    return 'ok'
   }
 
-  private async saveFile(
-    outputPath: string,
-    fileName: string,
-    httpClientResponse: IHttpClientResponse
-  ): Promise<string> {
-    const outFilePath: string = path.resolve(outputPath, fileName)
-    const fileStream: fs.WriteStream = fs.createWriteStream(outFilePath)
-
-    return new Promise((resolve, reject) => {
-      fileStream.on('error', err => reject(err))
-      const outStream = httpClientResponse.message.pipe(fileStream)
-
-      outStream.on('close', () => {
-        resolve(outFilePath)
-      })
-    })
-  }
+  //private async saveFile(
+  //  outputPath: string,
+  //  fileName: string,
+  //  httpClientResponse: IHttpClientResponse
+  //): Promise<string> {
+  //  const outFilePath: string = path.resolve(outputPath, fileName)
+  //  const fileStream: fs.WriteStream = fs.createWriteStream(outFilePath)
+//
+  //  return new Promise((resolve, reject) => {
+  //    fileStream.on('error', err => reject(err))
+  //    const outStream = httpClientResponse.message.pipe(fileStream)
+//
+  //    outStream.on('close', () => {
+  //      resolve(outFilePath)
+  //    })
+  //  })
+  //}
 }
