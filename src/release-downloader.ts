@@ -3,7 +3,7 @@
 //import * as io from '@actions/io'
 //import * as path from 'path'
 import * as thc from 'typed-rest-client/HttpClient'
-import { minimatch } from 'minimatch'
+//import { minimatch } from 'minimatch'
 
 import { DownloadMetaData, GithubRelease } from './gh-api'
 import { IHeaders, IHttpClientResponse } from 'typed-rest-client/Interfaces'
@@ -211,9 +211,9 @@ export class ReleaseDownloader {
       if (ghRelease && ghRelease.assets.length > 0) {
         for (const asset of ghRelease.assets) {
           // download only matching file names
-          if (!minimatch(asset.name, downloadSettings.fileName)) {
-            continue
-          }
+          //if (!minimatch(asset.name, downloadSettings.fileName)) {
+          //  continue
+          //}
 
           const dData: DownloadMetaData = {
             fileName: asset.name,
